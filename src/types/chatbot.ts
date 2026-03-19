@@ -8,6 +8,7 @@ export interface ChatLog {
   chatbot_answer: string | null;
   answer_status: "SUCCESS" | "FAILED";
   sources: string[];
+  feedback_id: number | null;
   feedback_type: "LIKE" | "DISLIKE" | null;
   feedback_reason_type:
     | "INACCURATE"
@@ -19,6 +20,9 @@ export interface ChatLog {
     | null;
   comment: string | null;
   latency_ms: number;
+  user_type: string | null;
+  user_group_id: number | null;
+  created_by: number | null;
   created_at: string; // ISO 8601
 }
 

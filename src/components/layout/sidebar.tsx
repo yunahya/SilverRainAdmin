@@ -15,6 +15,8 @@ import {
   PanelLeftClose,
   PanelLeft,
   CloudRain,
+  FileClock,
+  GitCompareArrows,
 } from "lucide-react";
 
 interface NavItem {
@@ -41,6 +43,15 @@ const NAV_MODULES: NavModule[] = [
       { label: "대시보드", href: "/chatbot/dashboard", icon: BarChart3 },
       { label: "대화 로그", href: "/chatbot/conversations", icon: MessageSquare },
       { label: "피드백 로그", href: "/chatbot/feedback", icon: ThumbsUp },
+    ],
+  },
+  {
+    id: "data-logs",
+    title: "데이터 변경로그",
+    icon: FileClock,
+    basePath: "/data-logs",
+    items: [
+      { label: "지표변경 로그", href: "/data-logs/indicator-changes", icon: GitCompareArrows },
     ],
   },
 ];

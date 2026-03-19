@@ -238,8 +238,8 @@ export default function FeedbackPage() {
                     </TableRow>
                   ) : (
                     paged.map((log) => (
-                      <TableRow key={log.id}>
-                        <TableCell className="text-xs font-mono">{log.id}</TableCell>
+                      <TableRow key={`${log.id}-${log.feedback_id}`}>
+                        <TableCell className="text-xs font-mono">{log.feedback_id ?? "-"}</TableCell>
                         <TableCell className="max-w-[300px] truncate text-sm">
                           {log.question_text}
                         </TableCell>

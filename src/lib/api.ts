@@ -21,10 +21,14 @@ interface RawChatLog {
   chatbot_answer: string | null;
   answer_status: "SUCCESS" | "FAILED";
   source: string; // "[getManualData, getIndicatorData]"
+  feedback_id: number | null;
   feedback_type: "LIKE" | "DISLIKE" | null;
   feedback_reason_type: string | null;
   comment: string | null;
   latency_ms: number;
+  user_type: string | null;
+  user_group_id: number | null;
+  created_by: number | null;
   created_at: string;
 }
 
@@ -43,6 +47,10 @@ function transformRawLog(raw: RawChatLog): ChatLog {
     ...raw,
     sources: parseSource(raw.source),
     feedback_reason_type: raw.feedback_reason_type as ChatLog["feedback_reason_type"],
+    user_type: raw.user_type ?? null,
+    user_group_id: raw.user_group_id ?? null,
+    created_by: raw.created_by ?? null,
+    feedback_id: raw.feedback_id ?? null,
   };
 }
 

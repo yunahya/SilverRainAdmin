@@ -10,13 +10,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid environment" }, { status: 400 });
   }
 
-  const apiUrl = `${envConfig.host}/mgt/silverain/chatbot/questions/log`;
+  const apiUrl = `${envConfig.host}/mgt/silverain/indicators`;
 
   try {
     const res = await fetch(apiUrl, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       cache: "no-store",
     });
 
@@ -30,7 +28,7 @@ export async function GET(request: NextRequest) {
     const data = await res.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Chatbot logs API proxy error:", error);
+    console.error("Indicators API proxy error:", error);
     return NextResponse.json(
       { error: "Failed to fetch from API" },
       { status: 502 }

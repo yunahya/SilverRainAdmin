@@ -21,35 +21,33 @@ function downloadCsv(filename: string, csvContent: string) {
 
 export function exportAllLogs(logs: ChatLog[]) {
   const headers = [
-    "ID",
-    "세션ID",
-    "순서",
-    "질문",
-    "답변",
-    "응답상태",
-    "피드백",
-    "피드백사유",
-    "코멘트",
-    "사용도구",
-    "응답시간(ms)",
-    "응답시간(s)",
-    "시간(KST)",
+    "user_id",
+    "user_group_no",
+    "timestamp",
+    "question_id",
+    "session_id",
+    "user_type",
+    "question_text",
+    "chatbot_answer",
+    "answer_status",
+    "message_sequence",
+    "latency_ms",
+    "sources",
   ];
 
   const rows = logs.map((log) => [
-    String(log.id),
+    log.created_by != null ? String(log.created_by) : "",
+    log.user_group_id != null ? String(log.user_group_id) : "",
+    formatKST(log.created_at),
+    log.question_id,
     log.session_id,
-    String(log.message_sequence),
+    log.user_type || "-",
     escapeCsv(log.question_text),
     escapeCsv(log.chatbot_answer || ""),
     log.answer_status,
-    log.feedback_type || "",
-    log.feedback_reason_type || "",
-    escapeCsv(log.comment || ""),
-    log.sources.join(", "),
+    String(log.message_sequence),
     String(log.latency_ms),
-    (log.latency_ms / 1000).toFixed(1),
-    formatKST(log.created_at),
+    log.sources.join(", "),
   ]);
 
   const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
@@ -61,29 +59,27 @@ export function exportFeedbackLogs(logs: ChatLog[]) {
   const feedbackLogs = logs.filter((l) => l.feedback_type !== null);
 
   const headers = [
-    "ID",
-    "세션ID",
-    "질문",
-    "답변",
-    "피드백",
-    "피드백사유",
-    "코멘트",
-    "사용도구",
-    "응답시간(s)",
-    "시간(KST)",
+    "user_id",
+    "user_group_no",
+    "feedback_id",
+    "feedback_timestamp",
+    "question_id",
+    "session_id",
+    "feedback_type",
+    "feedback_reason_type",
+    "feedback_comment",
   ];
 
   const rows = feedbackLogs.map((log) => [
-    String(log.id),
+    log.created_by != null ? String(log.created_by) : "",
+    log.user_group_id != null ? String(log.user_group_id) : "",
+    log.feedback_id != null ? String(log.feedback_id) : "",
+    formatKST(log.created_at),
+    log.question_id,
     log.session_id,
-    escapeCsv(log.question_text),
-    escapeCsv(log.chatbot_answer || ""),
     log.feedback_type || "",
     log.feedback_reason_type || "",
     escapeCsv(log.comment || ""),
-    log.sources.join(", "),
-    (log.latency_ms / 1000).toFixed(1),
-    formatKST(log.created_at),
   ]);
 
   const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
