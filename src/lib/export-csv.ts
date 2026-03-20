@@ -15,7 +15,9 @@ function downloadCsv(filename: string, csvContent: string) {
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
@@ -47,7 +49,7 @@ export function exportAllLogs(logs: ChatLog[]) {
     log.answer_status,
     String(log.message_sequence),
     String(log.latency_ms),
-    log.sources.join(", "),
+    escapeCsv(log.sources.join(", ")),
   ]);
 
   const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");

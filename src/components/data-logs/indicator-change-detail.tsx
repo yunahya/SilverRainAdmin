@@ -21,7 +21,7 @@ export function IndicatorChangeDetail({
   loading,
 }: IndicatorChangeDetailProps) {
   return (
-    <Card className="h-[700px] flex flex-col">
+    <Card className="h-full flex flex-col">
       <div className="border-b px-4 py-3">
         <h2 className="text-sm font-semibold">{indicatorName}</h2>
         <div className="flex items-center gap-3 mt-1">

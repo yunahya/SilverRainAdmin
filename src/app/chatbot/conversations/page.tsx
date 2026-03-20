@@ -101,40 +101,42 @@ export default function ConversationsPage() {
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-5">
-        <div className="lg:col-span-2">
-          <Card>
-            <div className="border-b px-3 py-2">
+      <div className="grid gap-4 lg:grid-cols-5 h-[calc(100vh-9rem)]">
+        <div className="lg:col-span-2 min-h-0">
+          <Card className="h-full flex flex-col overflow-hidden">
+            <div className="border-b px-3 py-2 shrink-0">
               <p className="text-xs font-medium text-muted-foreground">
                 {loading ? "로딩 중..." : `${sessions.length}개 세션`}
               </p>
             </div>
-            {loading ? (
-              <div className="p-3">
-                <TableSkeleton rows={6} />
-              </div>
-            ) : sessions.length === 0 ? (
-              <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">
-                세션이 없습니다
-              </div>
-            ) : (
-              <ConversationList
-                sessions={sessions}
-                selectedSessionId={selectedSessionId}
-                onSelectSession={setSelectedSessionId}
-              />
-            )}
+            <div className="flex-1 min-h-0">
+              {loading ? (
+                <div className="p-3">
+                  <TableSkeleton rows={6} />
+                </div>
+              ) : sessions.length === 0 ? (
+                <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">
+                  세션이 없습니다
+                </div>
+              ) : (
+                <ConversationList
+                  sessions={sessions}
+                  selectedSessionId={selectedSessionId}
+                  onSelectSession={setSelectedSessionId}
+                />
+              )}
+            </div>
           </Card>
         </div>
 
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3 min-h-0 overflow-hidden">
           {selectedSessionId && selectedMessages.length > 0 ? (
             <ConversationDetail
               sessionId={selectedSessionId}
               messages={selectedMessages}
             />
           ) : (
-            <Card className="flex h-[700px] flex-col items-center justify-center text-muted-foreground">
+            <Card className="flex h-full flex-col items-center justify-center text-muted-foreground">
               <MessageSquareText className="h-12 w-12 mb-3 opacity-20" />
               <p className="text-sm">왼쪽에서 세션을 선택하세요</p>
               <p className="text-xs mt-1">대화 내용이 여기에 표시됩니다</p>

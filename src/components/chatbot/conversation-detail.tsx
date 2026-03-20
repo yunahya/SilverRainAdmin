@@ -59,7 +59,7 @@ export function ConversationDetail({ sessionId, messages }: ConversationDetailPr
 
       {/* 대화 타임라인 */}
       <CardContent className="p-0 flex-1 overflow-hidden">
-        <ScrollArea className="h-[580px]">
+        <ScrollArea className="h-full">
           <div className="p-4 space-y-5">
             {messages.map((msg, idx) => (
               <div key={msg.question_id} className="space-y-3">

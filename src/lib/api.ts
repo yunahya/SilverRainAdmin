@@ -43,9 +43,10 @@ function parseSource(source: string | null | undefined): string[] {
 }
 
 function transformRawLog(raw: RawChatLog): ChatLog {
+  const { source, ...rest } = raw;
   return {
-    ...raw,
-    sources: parseSource(raw.source),
+    ...rest,
+    sources: parseSource(source),
     feedback_reason_type: raw.feedback_reason_type as ChatLog["feedback_reason_type"],
     user_type: raw.user_type ?? null,
     user_group_id: raw.user_group_id ?? null,

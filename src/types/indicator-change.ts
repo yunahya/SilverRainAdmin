@@ -28,6 +28,7 @@ export interface IndicatorChangeLog {
 // 왼쪽 목록용 요약 (프론트 가공)
 export interface IndicatorSummary {
   id: number;
+  user_group_id: number;
   indicator_code: string;
   indicator_name: string;
   medium_category_name: string;

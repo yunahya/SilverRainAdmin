@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Bar, BarChart, XAxis, YAxis, CartesianGrid } from "recharts";
+import { Bar, BarChart, XAxis, YAxis, CartesianGrid, Cell } from "recharts";
 import type { ChatLog } from "@/types/chatbot";
 
 interface SourceUsageChartProps {
@@ -66,11 +66,7 @@ export function SourceUsageChart({ logs }: SourceUsageChartProps) {
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={40}>
                 {data.map((_, idx) => (
-                  <Bar
-                    key={idx}
-                    dataKey="count"
-                    fill={COLORS[idx % COLORS.length]}
-                  />
+                  <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
                 ))}
               </Bar>
             </BarChart>
